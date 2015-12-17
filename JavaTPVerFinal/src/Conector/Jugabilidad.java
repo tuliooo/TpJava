@@ -28,6 +28,7 @@ public class Jugabilidad {
 	}
 	
 	public void iniciarPartida(){
+		System.out.println("Lllegaa11?");
 		playerActivo = getPlayersArray().get(0);
 		p.getTablero().setLabelUsr1("Jugador 1: "+getPlayerActual().getNombre());
 		p.getTablero().setLabelUsr2("Jugador 2: "+contrincante(getPlayerActual()).getNombre());
@@ -42,11 +43,17 @@ public class Jugabilidad {
 		p.getTablero().setPj1(principal);
 		Personaje contrincante = getPersonajePrincipal(contrincante(getPlayerActual()));
 		p.getTablero().setPj2(contrincante);
+		moverPersonaje(principal);
+		moverPersonaje(contrincante);
 		///VER
+		System.out.println("Lllegaa22?");
+
 		p.getTablero().setDatos(p.getTablero().getDatos1(),principal.getRaza().toString(),personajeTipo(principal),principal.getNombre(),principal.getFuerza(),principal.getInteligencia(),principal.getVida());
 		p.getTablero().setDatos(p.getTablero().getDatos2(),contrincante.getRaza().toString(),personajeTipo(contrincante),contrincante.getNombre(),contrincante.getFuerza(),contrincante.getInteligencia(),contrincante.getVida());
 		p.getTablero().inicializarCuadro();
 		m = new Mapa();
+		System.out.println("Lllegaa33?");
+
 		agregarHechizos();
 		System.out.println("Lllegaa?");
 		p.mostrar();
@@ -201,11 +208,11 @@ public class Jugabilidad {
 	
 	public String personajeTipo(Personaje persona){
 		switch(persona.getClass().getName()){ 
-		case "logica.Mago":
+		case "Dominio.Mago":
 			return "Mago";
-		case "logica.Clerigo":
+		case "Dominio.Clerigo":
 			return "Clerigo";
-		case "logica.Caballero":
+		case "Dominio.Caballero":
 			return "Caballero";
 		}
 		return null;
@@ -227,6 +234,8 @@ public class Jugabilidad {
 	
 	
 	public void moverPersonaje(Personaje personaje){
+		System.out.println("a ver que mostras");
+		System.out.println(personaje);
 		p.getTablero().dibujarPj(personaje.getCuadros(),personajeTipo(personaje));
 	}
 	
@@ -314,7 +323,7 @@ public class Jugabilidad {
 			//System.out.println("Se alcanzó el maximo de jugadores.");
 			toLog("Se alcanzó el maximo de jugadores.");
 			iniciarPartida();
-			p.getTablero().desactivarBotonDados();
+			p.getTablero().activarBotonDados();
 		}else{
 			p.getTablero().nuevoUsuario(this);
 		}

@@ -267,15 +267,15 @@ private void lanzarDados(Jugabilidad sistema){
 }
 
 public void activarBotonDados(){
-	menu[1].setVisible(true);
+	menu[1].setEnabled(true);
 }
 
 public void desactivarBotonDados(){
-	menu[1].setVisible(false);
+	menu[1].setEnabled(false);
 }
 /////>>>>>>>>>>>Agregar Extencion de imagen<<<<<<<<
 public void dibujarPj(int u, String imagen){
-	cuadro[u].setImage(new ImageIcon(imagen+"."));
+	cuadro[u].setImage(new ImageIcon(imagen+".png"));
 	}
 
 public void desdibujarPj(int u){

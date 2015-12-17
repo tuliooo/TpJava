@@ -16,6 +16,7 @@ public Tablero getTablero(){
 public void mostrar(){
 	this.setTitle("Juego");
 	this.setSize(800, 600);
+	this.setLocationRelativeTo(null);
 	this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	this.setVisible(true);
 }

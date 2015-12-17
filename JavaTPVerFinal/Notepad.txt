@@ -1,0 +1,94 @@
+Se alcanzó el maximo de jugadores.
+personaje seleccionado: cacx
+Turno de a
+casillero actual: 2
+personaje seleccionado: xzxz
+Turno de b
+casillero actual: 3
+personaje seleccionado: cacx
+Turno de a
+casillero actual: 12
+personaje seleccionado: xzxz
+Turno de b
+casillero actual: 16
+personaje seleccionado: cacx
+Turno de a
+casillero actual: 14
+personaje seleccionado: xzxz
+Turno de b
+casillero actual: 25
+personaje seleccionado: cacx
+Turno de a
+casillero actual: 22
+personaje seleccionado: xzxz
+Turno de b
+casillero actual: 31
+personaje seleccionado: cacx
+Turno de a
+casillero actual: 30
+personaje seleccionado: xzxz
+Turno de b
+casillero actual: 42
+personaje seleccionado: cacx
+Turno de a
+casillero actual: 33
+personaje seleccionado: xzxz
+Turno de b
+casillero actual: 49
+personaje seleccionado: vsva
+Turno de a
+casillero actual: 13
+Personaje: xzxz
+Personaje: cacx
+Personaje: vsva
+personaje seleccionado: xzxz
+Turno de b
+casillero actual: 55
+personaje seleccionado: vsva
+Turno de a
+casillero actual: 24
+Personaje: xzxz
+Personaje: cacx
+Personaje: vsva
+personaje seleccionado: xzxz
+Turno de b
+casillero actual: 57
+personaje seleccionado: vsva
+Turno de a
+casillero actual: 34
+Personaje: xzxz
+Personaje: cacx
+Personaje: vsva
+personaje seleccionado: xzxz
+Turno de b
+casillero actual: 68
+personaje seleccionado: cacx
+Turno de a
+casillero actual: 42
+personaje seleccionado: xzxz
+Turno de b
+casillero actual: 78
+personaje seleccionado: cacx
+Turno de a
+casillero actual: 47
+personaje seleccionado: xzxz
+Turno de b
+casillero actual: 82
+personaje seleccionado: vsva
+Turno de a
+casillero actual: 39
+Personaje: xzxz
+Personaje: cacx
+Personaje: vsva
+personaje seleccionado: xzxz
+Turno de b
+casillero actual: 95
+personaje seleccionado: vsva
+Turno de a
+casillero actual: 49
+Personaje: xzxz
+Personaje: cacx
+Personaje: vsva
+personaje seleccionado: xzxz
+El personaje xzxz terminó la partida
+Fin del juego, El ganador es b !
