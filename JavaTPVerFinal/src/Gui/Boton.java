@@ -3,7 +3,6 @@ package Gui;
 import javax.swing.JButton;
 
 public class Boton extends JButton{
-	private int numero;
 	private String nombre;
 
 	public Boton(String nom) {

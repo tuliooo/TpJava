@@ -61,14 +61,14 @@ public class Datos extends JPanel {
         
     }
     
-    public Datos(String nombre, String raza, String tipo, int fuerza, int inteligencia, int vida){
+    public Datos(String nombre, int fuerza, int inteligencia, int vida){
     	
     	this.nombre = new JLabel();
         this.fuerza = new JLabel();
     	this.inteligencia = new JLabel();
     	this.vida = new JProgressBar();
     	
-    	this.nombre.setText("Name: "+nombre+" ("+tipo+"),"+raza);
+    	this.nombre.setText("Name: "+nombre);
         this.fuerza.setText("Fuerza: "+fuerza);
         this.inteligencia.setText("Inteligencia: "+inteligencia);
         
