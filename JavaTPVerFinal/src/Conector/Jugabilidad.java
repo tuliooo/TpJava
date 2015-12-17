@@ -1,7 +1,10 @@
 package Conector;
 
 import java.awt.Color;
+import java.awt.Dialog;
 import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
 
 import Dominio.*;
 import Gui.Principal;
@@ -28,7 +31,6 @@ public class Jugabilidad {
 	}
 	
 	public void iniciarPartida(){
-		System.out.println("Lllegaa11?");
 		playerActivo = getPlayersArray().get(0);
 		p.getTablero().setLabelUsr1("Jugador 1: "+getPlayerActual().getNombre());
 		p.getTablero().setLabelUsr2("Jugador 2: "+contrincante(getPlayerActual()).getNombre());
@@ -46,16 +48,13 @@ public class Jugabilidad {
 		moverPersonaje(principal);
 		moverPersonaje(contrincante);
 		///VER
-		System.out.println("Lllegaa22?");
 
 		p.getTablero().setDatos(p.getTablero().getDatos1(),principal.getRaza().toString(),personajeTipo(principal),principal.getNombre(),principal.getFuerza(),principal.getInteligencia(),principal.getVida());
 		p.getTablero().setDatos(p.getTablero().getDatos2(),contrincante.getRaza().toString(),personajeTipo(contrincante),contrincante.getNombre(),contrincante.getFuerza(),contrincante.getInteligencia(),contrincante.getVida());
 		p.getTablero().inicializarCuadro();
 		m = new Mapa();
-		System.out.println("Lllegaa33?");
 
 		agregarHechizos();
-		System.out.println("Lllegaa?");
 		p.mostrar();
 	}
 	
@@ -234,7 +233,6 @@ public class Jugabilidad {
 	
 	
 	public void moverPersonaje(Personaje personaje){
-		System.out.println("a ver que mostras");
 		System.out.println(personaje);
 		p.getTablero().dibujarPj(personaje.getCuadros(),personajeTipo(personaje));
 	}
@@ -339,14 +337,82 @@ public class Jugabilidad {
 		//System.out.println("personaje seleccionado: "+personaje);
 		toLog("personaje seleccionado: "+personaje);
 		int dado = lanzarDados();
+		JOptionPane.showMessageDialog(null, "Dado: " + dado);
 		int pers = buscarPersonaje(personaje);
-		
+		int nuevaPosicion = 0;
 		if(pers>=0){
 			Personaje personajeActual = playerActivo.getPersonaje().get(pers); 
 			//pregunto si no me paso de los casilleros configurados previamente
-			if(personajeActual.getCuadros()+dado<vars.getCuadros()){
+			if(personajeActual.getCuadros() + dado < vars.getCuadros())
+			{
+				Object[] options = { "IZQUIERDA", "ABAJO","DERECHA", "ARRIBA"};
+				int donde = JOptionPane.showOptionDialog(null, "A donde desea moverse?", "Warning",
+				JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
+				null, options, options[0]);
+				System.out.println("El personaje esta en: " + personajeActual.getCuadros());
+				System.out.println("En el dado salio " + dado);
+				
+				switch (donde) {
+				case 0: //IZquierda
+					if(personajeActual.getCuadros()+dado*(-1)> -1)
+					{
+						nuevaPosicion = 0;
+						nuevaPosicion = nuevaPosicion + personajeActual.getCuadros() - dado;
+						System.out.println("Desde " + personajeActual.getCuadros() + "Va " + dado + "para la izquierda y termina en " + nuevaPosicion);
+					}else
+					{
+						nuevaPosicion = 0;
+
+					}
+					break;
+
+				case 2:
+					if(personajeActual.getCuadros() + dado< vars.getCuadros())
+					{
+						nuevaPosicion = 0;
+						nuevaPosicion = nuevaPosicion + personajeActual.getCuadros()+dado;
+						System.out.println("Desde " + personajeActual.getCuadros() + "Va " + dado + "para la derecha y termina en " + nuevaPosicion);
+
+					}else
+					{
+						nuevaPosicion = vars.getCuadros();
+					}
+					break;
+					
+				case 1: //Para abajo
+					if(personajeActual.getCuadros()+dado*(+10)< 100)
+					{
+						nuevaPosicion = 0;
+						nuevaPosicion = nuevaPosicion +  personajeActual.getCuadros()+ dado*10 ;
+						System.out.println("Desde " + personajeActual.getCuadros() + " Va " + dado + "para la abajo y termina en " + nuevaPosicion);
+						
+					}else
+					{
+						nuevaPosicion = vars.getCuadros()-1;
+					}
+					break;
+					
+				case 3:
+					if(personajeActual.getCuadros()+dado*(-10)> -1)
+					{
+						nuevaPosicion = 0;
+						nuevaPosicion = nuevaPosicion + personajeActual.getCuadros()+dado*(-10);
+						System.out.println("Desde " + personajeActual.getCuadros() + "Va " + dado + "para la arriba y termina en " + nuevaPosicion);
+					}else
+					{
+						nuevaPosicion = 0;
+
+					}
+					break;
+					
+				default:
+					break;
+					
+					
+				}
+				
 				limpiarTablero(personajeActual);
-				personajeActual.setCuadro(dado);
+				personajeActual.setCuadro(nuevaPosicion);
 	
 				p.getTablero().alternarFondo();
 				moverPersonaje(personajeActual);

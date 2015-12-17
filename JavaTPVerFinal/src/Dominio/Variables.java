@@ -6,7 +6,7 @@ public class Variables {
 	private	int filas = 10;
 	private int cuadros = filas*columnas;
 	private int hechizos = 6;
-	private int cant_dados = 2;
+	private int cant_dados = 1;
 	//clerigo
 	private int clerigo_fuerza_min = 18; //mayor o igual
 	private int clerigo_inteligencia_min = 12; //mayor o igual

@@ -54,9 +54,10 @@ public class Tablero extends JPanel{
     	this.d2 = dato;
     }
     public void setDatos(Datos datos, String nombre, String raza, String tipo, int fuerza, int inteligencia, int vida){
-    	datos.setNombre("Name: "+nombre);
+    	datos.setNombre("Raza: "+nombre);
     	datos.setFuerza("Fuerza: "+fuerza);
     	datos.setInteligencia("Inteligencia: "+inteligencia);
+    	datos.setTipo("Tipo: " + raza);
     	datos.setVida(vida);
     	
     }
@@ -210,7 +211,7 @@ public void eliminarComboBox(JComboBox<String> cmb){
 	cmb.removeItem(cmb.getSelectedItem().toString());
 }
     
-//>>>>>>>>RARO<<<<<<<<<<<<<
+
 public void actualizarComboBox(Jugabilidad juego, Usuario usr){
 	String cadena = "Jugador 1:"+usr.getNombre();
 	if(cadena.compareTo(lblUsuario1.getText())==0){

@@ -78,7 +78,7 @@ public abstract class Personaje implements Accion{
 		return cuadros;
 	}
 	public void setCuadro(int cuadros) {
-		this.cuadros += cuadros;
+		this.cuadros = cuadros;
 	}
 	
 	//ToString

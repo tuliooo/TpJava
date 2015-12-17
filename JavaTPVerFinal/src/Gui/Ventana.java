@@ -19,6 +19,7 @@ public class Ventana extends JFrame{
  public void mostrar(){
 	 this.setSize(x, y);
 	 this.setVisible(true);
+	 this.setLocationRelativeTo(null);
  }
 
 }

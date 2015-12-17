@@ -19,5 +19,6 @@ public void mostrar(){
 	this.setLocationRelativeTo(null);
 	this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	this.setVisible(true);
+	this.setLocationRelativeTo(null);
 }
 }

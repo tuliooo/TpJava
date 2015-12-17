@@ -16,6 +16,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import sun.text.normalizer.UBiDiProps;
+
 import BD.Conector;
 import Conector.Jugabilidad;
 import Dominio.Caballero;
@@ -59,6 +61,7 @@ public class PersonajeVista extends JPanel{
 		fuerzaLabel = new JLabel("Fuerza");
 		inteligenciaLabel = new JLabel("Inteligencia");
 		personajeRaza = Raza.ELFO;
+		personajeTipo = "Caballero";
 		
 		JLabel 	texto = new JLabel(),
 				l1 = new JLabel(),
@@ -69,10 +72,10 @@ public class PersonajeVista extends JPanel{
 				l6 = new JLabel();
 		fuerzaText = new JTextField(0);
 		inteligenciaText = new JTextField(0);
-		
+		inteligenciaText.setText("15");
+		fuerzaText.setText("15");
 		Boton b2 = new Boton("Agregar Personaje");
 		Boton b3 = new Boton("Terminar");
-		
 		texto.setText("Nuevo Personaje");
 		l1.setText("Nombre del Personaje: ");
 		l2.setText("Raza");
@@ -80,7 +83,7 @@ public class PersonajeVista extends JPanel{
 		l4.setText("Fuerza: ");
 		l5.setText("Inteligencia: ");
 		
-		String tipos[] = { "Arquero", "Caballero", "Clerigo", "Mago" };
+		String tipos[] = {"Caballero", "Clerigo", "Mago" };
 		comboTipo = new JComboBox<String>(tipos);
 		
 		ItemListener itemListener2 = new ItemListener() {
@@ -117,6 +120,9 @@ public class PersonajeVista extends JPanel{
 						String Dios = JOptionPane.showInputDialog(frame, "Ingrese el nombre de su Dios");
 						fuerzaText.setText(String.valueOf(personajeFuerza));
 						inteligenciaText.setText(String.valueOf(personajeInteligencia));
+						fuerzaText.setEnabled(false);
+						inteligenciaText.setEnabled(false);
+						
 					}
 					System.out.println(personajeTipo);
 					if(personajeTipo == "Mago")
@@ -146,6 +152,8 @@ public class PersonajeVista extends JPanel{
 						personajeFuerza = fuerzaInputI;
 						fuerzaText.setText(String.valueOf(personajeFuerza));
 						inteligenciaText.setText(String.valueOf(personajeInteligencia));
+						fuerzaText.setEnabled(false);
+						inteligenciaText.setEnabled(false);
 					}
 					
 					if(personajeTipo == "Arquero")
@@ -168,6 +176,8 @@ public class PersonajeVista extends JPanel{
 						personajeInteligencia = inteligencia;
 						fuerzaText.setText(String.valueOf(personajeFuerza));
 						inteligenciaText.setText(String.valueOf(personajeInteligencia));
+						fuerzaText.setEnabled(false);
+						inteligenciaText.setEnabled(false);
 					}
 				}
 
@@ -236,6 +246,8 @@ public class PersonajeVista extends JPanel{
 				}
 				guardarPersonaje(user, unPersonaje);
 				save(unPersonaje, personajeTipo);
+				inteligenciaText.setText("0");
+				fuerzaText.setText("0");
 			}
 		});
 		
