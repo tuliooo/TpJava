@@ -94,6 +94,7 @@ public class Tablero extends JPanel{
     public void cargarDatos(Jugabilidad juego){
     	panel = new JPanel();
     	panel.setLayout(new GridLayout(4,2));
+    	
     	String[] listaMenu ={"Reiniciar","Dados"};
     	for(int i=0;i<menu.length;i++){
     		menu[i] = new Boton(listaMenu[i]);
@@ -199,14 +200,16 @@ public void cargaComboBox2(Jugabilidad juego, Usuario usr){
 		}
 	}
 }
-/////Get label usr1 y set label usr1
+/////Get label usr1, 2 y set label usr1,2
 public void eliminarComboBox(JComboBox<String> cmb){
 	cmb.removeItem(cmb.getSelectedItem().toString());
 }
     
-//ACT cmb
+//>>>>>>>>RARO<<<<<<<<<<<<<
 public void actualizarComboBox(Jugabilidad juego, Usuario usr){
 	
 }
 
 }
+
+public void 

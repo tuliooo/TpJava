@@ -18,7 +18,7 @@ public class Jugabilidad {
 		vars = new Variables();
 		setPlayersArray(new ArrayList<Usuario>());
 		p = new Principal(vars.getCuadros(),vars.getFilas(),vars.getColumnas());
-		p.getTablero().agregarDetalle(this);
+		p.getTablero().cargarDatos(this);
 		
 		try{
 			eventos = new Notepad();
@@ -36,10 +36,11 @@ public class Jugabilidad {
 		p.getTablero().cargarCombo1(this,getPlayerActivo());
 		///
 		p.getTablero().cargarCombo2(this,contrincante(getPlayerActivo()));
-		p.getTablero().getCmb().setEnabled(true);
-		p.getTablero().getCmb2().setEnabled(false);
+		p.getTablero().getCmbPersonajes1().setEnabled(true);
+		p.getTablero().getCmbPersonajes2().setEnabled(false);
 		Personaje principal = getPersonajePrincipal(getPlayerActivo());
-		p.getTablero().setPersonaje1(principal);
+		p.getTablero().setPersonaje1(pri
+				ncipal);
 		Personaje contrincante = getPersonajePrincipal(contrincante(getPlayerActivo()));
 		p.getTablero().setPersonaje2(contrincante);
 		p.getTablero().setDetalle(p.getTablero().getDetalle1(),principal.getRaza().toString(),personajeTipo(principal),principal.getNombre(),principal.getFuerza(),principal.getFuerzaMaxima(),principal.getInteligencia(),principal.getInteligenciaMaxima(),principal.getVida(),principal.getVidaMaxima());
