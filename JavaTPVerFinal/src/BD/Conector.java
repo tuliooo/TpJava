@@ -13,7 +13,6 @@ import Dominio.Caballero;
 import Dominio.Clerigo;
 import Dominio.Mago;
 import Dominio.Personaje;
-import Dominio.Posicion;
 import Dominio.Raza;
 import Dominio.Usuario;
 
@@ -145,18 +144,17 @@ public void connect(){
 	        	while (result.next()) 
 	        	{
 	        		
-	        		Posicion pos = new Posicion(0, 0);
 	    			switch (result.getString(("tipo"))) {
 	    			case "Caballero":
-	    				unPersonaje = new Caballero(result.getString("nombre"),Raza.valueOf(result.getString("raza")) , result.getInt("fuerza"), result.getInt("inteligencia"), 100, 100, 1, pos);
+	    				unPersonaje = new Caballero(result.getString("nombre"),Raza.valueOf(result.getString("raza")) , result.getInt("fuerza"), result.getInt("inteligencia"), 100);
 	    				break;
 
 	    			case "Mago":
-	    				unPersonaje = new Mago(result.getString("nombre"),Raza.valueOf(result.getString("raza")) , result.getInt("fuerza"), result.getInt("inteligencia"), 100, 100, 1, pos);
+	    				unPersonaje = new Mago(result.getString("nombre"),Raza.valueOf(result.getString("raza")) , result.getInt("fuerza"), result.getInt("inteligencia"), 100);
 	    				break;
 
 	    			case "Clerigo":
-	    				unPersonaje = new Clerigo(result.getString("nombre"),Raza.valueOf(result.getString("raza")) , result.getInt("fuerza"), result.getInt("inteligencia"), 100, 100, 1, pos);	
+	    				unPersonaje = new Clerigo(result.getString("nombre"),Raza.valueOf(result.getString("raza")) , result.getInt("fuerza"), result.getInt("inteligencia"), 100);	
 	    				break;
 	    			default:
 	    				break;
