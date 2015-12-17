@@ -40,8 +40,12 @@ public class PersonajeVista extends JPanel{
 	private int personajeFuerza;
 	private int personajeInteligencia;
 	Raza personajeRaza;
+	private String personajeRazaS;
 	JFrame frame;
 	private Usuario user;
+	
+	public JTextField fuerzaText;
+	public JTextField inteligenciaText;
 	
 	public void nuevoPersonaje(){
 		JPanel titulo = new JPanel(), 
@@ -54,7 +58,7 @@ public class PersonajeVista extends JPanel{
 		
 		fuerzaLabel = new JLabel("Fuerza");
 		inteligenciaLabel = new JLabel("Inteligencia");
-		
+		personajeRaza = Raza.ELFO;
 		
 		JLabel 	texto = new JLabel(),
 				l1 = new JLabel(),
@@ -63,7 +67,8 @@ public class PersonajeVista extends JPanel{
 				l4 = new JLabel(),
 				l5 = new JLabel(),
 				l6 = new JLabel();
-		JTextField fuerzaText = null, inteligenciaText = null;
+		fuerzaText = new JTextField(0);
+		inteligenciaText = new JTextField(0);
 		
 		Boton b2 = new Boton("Agregar Personaje");
 		Boton b3 = new Boton("Terminar");
@@ -178,12 +183,16 @@ public class PersonajeVista extends JPanel{
 			public void itemStateChanged(ItemEvent itemEvent) {
 				int state = itemEvent.getStateChange();
 				if (state == ItemEvent.SELECTED) {
-					System.out.println(itemEvent.getItem());
+					System.out.println(itemEvent.getItem()+ "RAZA");
 					String unItem = (String) itemEvent.getItem();
 					personajeRaza = Raza.valueOf(unItem);
+					personajeRazaS = personajeRaza.toString();
 				}
 			}
 		};
+		
+		comboRaza.addItemListener(itemListener1);
+		personajeRazaS = comboRaza.getSelectedItem().toString();
 		
 		formulario.add(l1);
 		formulario.add(nombreJugador);
@@ -206,7 +215,6 @@ public class PersonajeVista extends JPanel{
 			public void actionPerformed(ActionEvent arg0){
 				Personaje unPersonaje = null;
 				personajeNombre = nombreJugador.getText();
-				//personajeRaza = 
 				personajeInteligencia = Integer.parseInt(inteligenciaText.getText());
 				personajeFuerza = Integer.parseInt(fuerzaText.getText());
 				//posPersonaje = new Posicion(0, 0);
@@ -226,6 +234,7 @@ public class PersonajeVista extends JPanel{
 				default:
 					break;
 				}
+				guardarPersonaje(user, unPersonaje);
 				save(unPersonaje, personajeTipo);
 			}
 		});
@@ -245,8 +254,10 @@ public class PersonajeVista extends JPanel{
 	public void save(Personaje unPersonaje, String tipo){
         Conector con = new Conector();
         con.connect();
+        System.out.println(unPersonaje);
         con.savePersonaje(unPersonaje,tipo);
         con.close();
+        
     }
 	
 

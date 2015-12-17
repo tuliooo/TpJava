@@ -56,7 +56,7 @@ public void connect(){
 	 public void savePersonaje(Personaje unPersonaje, String tipo)
 	 {
 		 try {
-	            PreparedStatement st = connect.prepareStatement("insert into personajes(nombre, raza, inteligencia, fuerza, tipo) values (?, ?, ?, ?, ?, ?, ?)");
+	            PreparedStatement st = connect.prepareStatement("insert into personajes(nombre, raza, inteligencia, fuerza, tipo) values (?, ?, ?, ?, ?)");
 	            st.setString(1, unPersonaje.getNombre());
 	            st.setString(2, unPersonaje.getRaza().toString());
 	            st.setInt(3, unPersonaje.getInteligencia());

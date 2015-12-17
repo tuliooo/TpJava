@@ -1,15 +1,16 @@
 package Gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-
 import Conector.Jugabilidad;
 import Dominio.Personaje;
 import Dominio.Usuario;
@@ -45,6 +46,10 @@ public class Tablero extends JPanel{
     	return d2;
     }
     
+    public Ventana getVentana(){
+    	return ventana;
+    }
+    
     public void setDatos2(Datos dato){
     	this.d2 = dato;
     }
@@ -66,7 +71,7 @@ public class Tablero extends JPanel{
     	cmbPersonajes2 = new JComboBox<String>();
     	
     	lblUsuario1 = new JLabel(); 
-    	lvlUsuario2 = new JLabel();
+    	lblUsuario2 = new JLabel();
     	
     	d1 = new Datos();
     	d2 = new Datos();  	
@@ -91,7 +96,7 @@ public class Tablero extends JPanel{
     	}
     }
   
-    public void cargarDatos(Jugabilidad juego){
+    public void cargarDatos(final Jugabilidad juego){
     	panel = new JPanel();
     	panel.setLayout(new GridLayout(4,2));
     	
@@ -109,7 +114,7 @@ public class Tablero extends JPanel{
     	
     	menu[1].addActionListener(new ActionListener(){
     		public void actionPerformed(ActionEvent arg0){
-    			rndDados(juego);
+    			lanzarDados(juego);
     		}
     	});
     	
@@ -216,6 +221,29 @@ public void actualizarComboBox(Jugabilidad juego, Usuario usr){
 	}
 }
 
+public void generarCuadros(int cuadros,int filas, int columnas){
+	//genero matriz de imagenes
+	JPanel matriz = new JPanel();
+	matriz.setLayout(new GridLayout(filas,columnas));
+	
+	for(int i=0;i<cuadros;i++){
+		if(((i%columnas)==0)&&((i/columnas)%2!=0)){
+			for(int j=i+(columnas-1);j>=i;j--){
+				cuadro[j] = new ImageLabel();
+				cuadro[j].setBorder(BorderFactory.createLineBorder(Color.BLACK));
+				matriz.add(cuadro[j]);
+			}
+			i=i+(columnas-1);
+		}else{
+			cuadro[i] = new ImageLabel();
+			cuadro[i].setBorder(BorderFactory.createLineBorder(Color.BLACK));
+			matriz.add(cuadro[i]);
+		}
+	}
+	this.setLayout(new BorderLayout());
+	this.add(matriz, BorderLayout.CENTER);
+}
+
 public JLabel getLabelUsr1(){
 	return lblUsuario1;
 }
@@ -228,6 +256,14 @@ public void setLabelUsr1(String lblUsr1){
 }
 public void setLabelUsr2(String lblUsr2){
 	this.lblUsuario2.setText(lblUsr2);
+}
+
+private void lanzarDados(Jugabilidad sistema){
+	if(lblUsuario1.getBackground()==Color.ORANGE){
+		sistema.lanzar(cmbPersonajes1.getSelectedItem().toString());
+	}else{
+		sistema.lanzar(cmbPersonajes2.getSelectedItem().toString());
+	}
 }
 
 public void activarBotonDados(){
@@ -251,6 +287,12 @@ public void reiniciarJuego(Jugabilidad juego){
 	nuevoUsuario(juego);
 }
 
+public void inicializarCuadro(){
+	for(int i=0;i<cuadro.length;i++){
+		cuadro[i].setImage(new ImageIcon(""));
+	}
+}
+
 public void nuevoUsuario(Jugabilidad juego){
 	usuarioV = new UsuarioVista(juego);
 	usuarioV.nuevoPlayer();
@@ -258,6 +300,37 @@ public void nuevoUsuario(Jugabilidad juego){
 	ventana = new Ventana("Inicio de Juego", 450, 300);
 	ventana.add(usuarioV);
 	ventana.mostrar();
+}
+
+
+public void setPersonajes(Jugabilidad juego, Usuario usr){
+	personajeV = new PersonajeVista(juego, usr);
+	personajeV.nuevoPersonaje();
+	ventana.add(personajeV);
+	ventana.mostrar();
+}
+
+public void alternarFondo(){
+	if(lblUsuario1.getBackground()==Color.ORANGE){
+		lblUsuario1.setBackground(Color.lightGray);
+		lblUsuario2.setBackground(Color.ORANGE);
+		cmbPersonajes1.setEnabled(false);
+		cmbPersonajes2.setEnabled(true);
+	}else{
+		lblUsuario2.setBackground(Color.lightGray);
+		lblUsuario1.setBackground(Color.ORANGE);
+		cmbPersonajes1.setEnabled(true);
+		cmbPersonajes2.setEnabled(false);
+	}
+}
+
+public UsuarioVista getJugador() {
+	return usuarioV;
+}
+
+
+public void infoVentana(String titulo,String texto){
+	JOptionPane.showMessageDialog(this,texto,titulo,JOptionPane.INFORMATION_MESSAGE);
 }
 }
 

@@ -29,31 +29,32 @@ public class Jugabilidad {
 	
 	public void iniciarPartida(){
 		playerActivo = getPlayersArray().get(0);
-		p.getTablero().setLabelPlayer1("Jugador 1: "+getPlayerActivo().getNombre());
-		p.getTablero().setLabelPlayer2("Jugador 2: "+contrincante(getPlayerActivo()).getNombre());
-		p.getTablero().getLabelPlayer1().setBackground(Color.ORANGE);
-		p.getTablero().getLabelPlayer2().setBackground(Color.lightGray);
-		p.getTablero().cargarCombo1(this,getPlayerActivo());
+		p.getTablero().setLabelUsr1("Jugador 1: "+getPlayerActual().getNombre());
+		p.getTablero().setLabelUsr2("Jugador 2: "+contrincante(getPlayerActual()).getNombre());
+		p.getTablero().getLabelUsr1().setBackground(Color.ORANGE);
+		p.getTablero().getLabelUsr2().setBackground(Color.lightGray);
+		p.getTablero().cargaComboBox1(this,getPlayerActual());
 		///
-		p.getTablero().cargarCombo2(this,contrincante(getPlayerActivo()));
+		p.getTablero().cargaComboBox2(this,contrincante(getPlayerActual()));
 		p.getTablero().getCmbPersonajes1().setEnabled(true);
 		p.getTablero().getCmbPersonajes2().setEnabled(false);
-		Personaje principal = getPersonajePrincipal(getPlayerActivo());
-		p.getTablero().setPersonaje1(pri
-				ncipal);
-		Personaje contrincante = getPersonajePrincipal(contrincante(getPlayerActivo()));
-		p.getTablero().setPersonaje2(contrincante);
-		p.getTablero().setDetalle(p.getTablero().getDetalle1(),principal.getRaza().toString(),personajeTipo(principal),principal.getNombre(),principal.getFuerza(),principal.getFuerzaMaxima(),principal.getInteligencia(),principal.getInteligenciaMaxima(),principal.getVida(),principal.getVidaMaxima());
-		p.getTablero().setDetalle(p.getTablero().getDetalle2(),contrincante.getRaza().toString(),personajeTipo(contrincante),contrincante.getNombre(),contrincante.getFuerza(),contrincante.getFuerzaMaxima(),contrincante.getInteligencia(),contrincante.getInteligenciaMaxima(),contrincante.getVida(),contrincante.getVidaMaxima());
-		p.getTablero().inicializarCasilleros();
+		Personaje principal = getPersonajePrincipal(getPlayerActual());
+		p.getTablero().setPj1(principal);
+		Personaje contrincante = getPersonajePrincipal(contrincante(getPlayerActual()));
+		p.getTablero().setPj2(contrincante);
+		///VER
+		p.getTablero().setDatos(p.getTablero().getDatos1(),principal.getRaza().toString(),personajeTipo(principal),principal.getNombre(),principal.getFuerza(),principal.getInteligencia(),principal.getVida());
+		p.getTablero().setDatos(p.getTablero().getDatos2(),contrincante.getRaza().toString(),personajeTipo(contrincante),contrincante.getNombre(),contrincante.getFuerza(),contrincante.getInteligencia(),contrincante.getVida());
+		p.getTablero().inicializarCuadro();
 		m = new Mapa();
 		agregarHechizos();
+		System.out.println("Lllegaa?");
 		p.mostrar();
 	}
 	
 	public void toLog(String texto){
 		try{
-			log.escribir(texto);
+			eventos.write(texto);
 		}catch(ErrorWriteNotepad error){
 			popup("Error","Error al grabar archivo");
 		}
@@ -120,7 +121,7 @@ public class Jugabilidad {
 		try{
 			ArrayList<Personaje> personajes= new ArrayList<Personaje>();
 			personajes.addAll(contrincante.getPersonaje());
-			personajes.addAll(getPlayerActivo().getPersonaje());
+			personajes.addAll(getPlayerActual().getPersonaje());
 
 			for(Personaje per : personajes){
 				//System.out.println("Personaje: "+per.getNombre());
@@ -187,7 +188,7 @@ public class Jugabilidad {
 	
 	public void iniciarJuego(){
 		inicializarJugadores();
-		p.getTablero().nuevaPartida(this);
+		p.getTablero().reiniciarJuego(this);
 	}
 	
 	public Mapa getMapa() {
@@ -226,14 +227,14 @@ public class Jugabilidad {
 	
 	
 	public void moverPersonaje(Personaje personaje){
-		p.getTablero().dibujarPersonaje(personaje.getCuadros(),personajeTipo(personaje));
+		p.getTablero().dibujarPj(personaje.getCuadros(),personajeTipo(personaje));
 	}
 	
 	public void limpiarTablero(Personaje personaje){
-		p.getTablero().desDibujarPersonaje(personaje.getCuadros());
+		p.getTablero().desdibujarPj(personaje.getCuadros());
 		for(Personaje per : contrincante(playerActivo).getPersonaje()){
 			if((per.getCuadros()==personaje.getCuadros()&&per.getVida()>0)){
-				p.getTablero().dibujarPersonaje(per.getCuadros(),personajeTipo(per));
+				p.getTablero().dibujarPj(per.getCuadros(),personajeTipo(per));
 			}
 		}
 	}
@@ -278,18 +279,18 @@ public class Jugabilidad {
 	
 	
 	public void actualizarPersonajes(Usuario player){
-		p.getTablero().actualizarCombo(this,player);
+		p.getTablero().actualizarComboBox(this,player);
 	}
 	
 	public void mostrarGanador(Usuario player){
 		popup("Fin del juego","El ganador es "+player.getNombre()+" !");
 		toLog("Fin del juego, El ganador es "+player.getNombre()+" !");
-		p.getTablero().bloquearBotonLanzar();
+		p.getTablero().desactivarBotonDados();
 		inicializarJugadores();
 	}
 	
 	public void popup(String titulo, String texto){
-		p.getTablero().infoPopup(titulo,texto);
+		p.getTablero().infoVentana(titulo,texto);
 	}
 	
 	public Usuario getPlayerActual(){
@@ -297,24 +298,25 @@ public class Jugabilidad {
 	}
 	
 	public void agregarJugador(String nombre){
-			U
+			Usuario unUsuario = new Usuario(nombre);
+			playersArray.add(unUsuario);
 			if(playerActivo==null){
-				playerActivo = player;
+				playerActivo = unUsuario;
 			}
 			//oculto el formulario de jugador y muestro del del personaje
 			p.getTablero().getJugador().setVisible(false);
-			p.getTablero().setPersonajes(this,player);
+			p.getTablero().setPersonajes(this,unUsuario);
 	}
 	
 	public void nuevoJugador(){
-		p.getTablero().getForm1().setVisible(false);
-		if(getPlayersArray().size()==2){
+		p.getTablero().getVentana().setVisible(false);
+		if(playersArray.size()==2){
 			//System.out.println("Se alcanzó el maximo de jugadores.");
 			toLog("Se alcanzó el maximo de jugadores.");
 			iniciarPartida();
-			p.getTablero().desbloquearBotonLanzar();
+			p.getTablero().desactivarBotonDados();
 		}else{
-			p.getTablero().nuevoJugador(this);
+			p.getTablero().nuevoUsuario(this);
 		}
 	}
 	
@@ -335,7 +337,7 @@ public class Jugabilidad {
 			//pregunto si no me paso de los casilleros configurados previamente
 			if(personajeActual.getCuadros()+dado<vars.getCuadros()){
 				limpiarTablero(personajeActual);
-				personajeActual.getCuadros(dado);
+				personajeActual.setCuadro(dado);
 	
 				p.getTablero().alternarFondo();
 				moverPersonaje(personajeActual);
@@ -416,6 +418,8 @@ public class Jugabilidad {
 	public void setPlayersArray(ArrayList<Usuario> playersArray) {
 		this.playersArray = playersArray;
 	}	
+	
+	
 	
 }
 
