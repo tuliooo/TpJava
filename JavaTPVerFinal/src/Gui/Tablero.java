@@ -207,9 +207,57 @@ public void eliminarComboBox(JComboBox<String> cmb){
     
 //>>>>>>>>RARO<<<<<<<<<<<<<
 public void actualizarComboBox(Jugabilidad juego, Usuario usr){
+	String cadena = "Jugador 1:"+usr.getNombre();
+	if(cadena.compareTo(lblUsuario1.getText())==0){
+		eliminarComboBox(cmbPersonajes1);
+	}
+	else{
+		eliminarComboBox(cmbPersonajes2);
+	}
+}
+
+public JLabel getLabelUsr1(){
+	return lblUsuario1;
+}
+public JLabel getLabelUsr2(){
+	return lblUsuario2;
+}
+
+public void setLabelUsr1(String lblUsr1){
+	this.lblUsuario1.setText(lblUsr1);
+}
+public void setLabelUsr2(String lblUsr2){
+	this.lblUsuario2.setText(lblUsr2);
+}
+
+public void activarBotonDados(){
+	menu[1].setVisible(true);
+}
+
+public void desactivarBotonDados(){
+	menu[1].setVisible(false);
+}
+/////>>>>>>>>>>>Agregar Extencion de imagen<<<<<<<<
+public void dibujarPj(int u, String imagen){
+	cuadro[u].setImage(new ImageIcon(imagen+"."));
+	}
+
+public void desdibujarPj(int u){
+	cuadro[u].setImage(new ImageIcon(""));
+	}
+
+public void reiniciarJuego(Jugabilidad juego){
+	juego.inicializarJugadores();
+	nuevoUsuario(juego);
+}
+
+public void nuevoUsuario(Jugabilidad juego){
+	usuarioV = new UsuarioVista(juego);
+	usuarioV.nuevoPlayer();
 	
+	ventana = new Ventana("Inicio de Juego", 450, 300);
+	ventana.add(usuarioV);
+	ventana.mostrar();
+}
 }
 
-}
-
-public void 
